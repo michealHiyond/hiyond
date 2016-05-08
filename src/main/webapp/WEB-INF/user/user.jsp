@@ -19,9 +19,6 @@ function login(){
 	$("#loginAndRegister").submit();
 }
 
-function loginAndRegister(){
-	
-}
 </script>
 <body>
 <h2>Hello World!</h2>
