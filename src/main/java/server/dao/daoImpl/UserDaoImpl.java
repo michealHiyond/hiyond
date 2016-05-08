@@ -37,7 +37,7 @@ public class UserDaoImpl extends BaseDao implements UserDao{
 
 	@Override
 	public List<User> queryUser() throws Exception {
-		String sql = "select id, name,password,last_login_time from tb_user_info limit 10";
+		String sql = "select id, name,password,last_login_time,uuid from tb_user_info limit 10";
 		List<User> queryList = getNamedJdbcTemplate().query(sql,new RowMapper<User>() {
 			User user = null;
 			@Override
@@ -53,8 +53,8 @@ public class UserDaoImpl extends BaseDao implements UserDao{
 
 	@Override
 	public boolean insertUser(User user) throws Exception {
-		String sql = "insert into tb_user_info(name,password,last_login_time)"+
-						"values(:name,:password,:lastLoginTime)";
+		String sql = "insert into tb_user_info(name,password,last_login_time,uuid)"+
+						"values(:name,:password,:lastLoginTime,:UUID)";
 		SqlParameterSource sqlParameterSource = new BeanPropertySqlParameterSource(user);
 		int flag = getNamedJdbcTemplate().update(sql, sqlParameterSource);
 		return flag > 0 ? true : false;
@@ -62,7 +62,7 @@ public class UserDaoImpl extends BaseDao implements UserDao{
 
 	@Override
 	public User findUserById(int id)  throws Exception {
-		String sql = "select id, name,password,last_login_time from tb_user_info where id = :id";
+		String sql = "select id, name,password,last_login_time,uuid from tb_user_info where id = :id";
 		final User user = new User();
 		getNamedJdbcTemplate().query(sql, new RowCallbackHandler() {
 			public void processRow(ResultSet resultSet) throws SQLException {

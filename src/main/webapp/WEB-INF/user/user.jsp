@@ -5,23 +5,28 @@
 <script type="text/javascript" src="../assets/utils/jquery/jquery.sha1.js"></script>
 <script>
 function register(){
-	loginAndRegister();
-}
-function login(){
-	loginAndRegister();
-}
-
-function loginAndRegister(){
 	var password = $.sha1($("#password").val().trim());
 	console.log("password"+password);
 	$("#password").val(password);
+	$("#loginAndRegister").attr("action","register");
 	$("#loginAndRegister").submit();
+}
+function login(){
+	var password = $.sha1($("#password").val().trim());
+	console.log("password"+password);
+	$("#password").val(password);
+	$("#loginAndRegister").attr("action","login");
+	$("#loginAndRegister").submit();
+}
+
+function loginAndRegister(){
+	
 }
 </script>
 <body>
 <h2>Hello World!</h2>
 	<div>
-		<form action="login" id="loginAndRegister" method="post">
+		<form action="" id="loginAndRegister" method="post">
 			<input type="hidden" name="rebackUrl" value="${rebackUrl}">
 			<table>
 				<tr>

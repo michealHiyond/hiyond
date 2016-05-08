@@ -25,7 +25,17 @@ public class User implements Serializable{
 
 	private Date lastLoginTime;
 
-	public Integer getId() {
+	private String UUID;
+	
+	public String getUUID() {
+        return UUID;
+    }
+
+    public void setUUID(String uUID) {
+        UUID = uUID;
+    }
+
+    public Integer getId() {
 		return id;
 	}
 

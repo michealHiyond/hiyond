@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import server.entity.User;
 import server.service.UserService;
 import server.tools.TimeUtils;
+import server.tools.Tools;
 
 /**
  * 
@@ -68,6 +69,7 @@ public class UserAction {
         String dateType = "yyyy-MM-dd HH:mm:ss";
         lastLoginTime = TimeUtils.util_timeFormat(TimeUtils.util_timeFormat(lastLoginTime, dateType), dateType);
         user.setLastLoginTime(lastLoginTime);
+        user.setUUID(Tools.getUUID());
         userService.insertUser(user);
         HttpSession httpSession = request.getSession();
         httpSession.setAttribute("user", user);
