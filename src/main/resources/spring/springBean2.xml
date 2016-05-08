@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+				        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+				        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+				        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<bean id="userService" class="server.service.serviceImpl.UserServiceImpl">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+	<bean id="userDao" class="server.dao.daoImpl.UserDaoImpl">
+	</bean>
+	
+	<bean id="user" class="server.entity.User">
+	</bean>
+	
+	<bean id="user_constructor" class="server.entity.User">
+		<constructor-arg value="1"></constructor-arg>
+		<constructor-arg value="hiyond_test"></constructor-arg>
+	</bean>
+	
+	<bean id="springTest" class="server.tools.SpringTest">
+		<property name="number" value="20"></property>
+		<property name="user" ref="user_constructor"></property>
+		<property name="map">
+			<map>
+				<entry key="hiyond_str" value="hiyond_str_value"></entry>
+				<entry key="hiyond_bean" value-ref="user_constructor"></entry>
+			</map>
+		</property>
+		<property name="list">
+			<list>
+				<value>1111</value>
+				<ref bean="user_constructor"></ref>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="springTest1" class="server.tools.SpringTest">
+		<property name="flag" value="#{true}"></property>
+		<property name="dou" value="#{3.1416926}"></property>
+	</bean>
+	
+	<context:component-scan base-package="server.tools">
+		
+	</context:component-scan>
+</beans>

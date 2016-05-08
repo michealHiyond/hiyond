@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<!-- StudentDaoMapper class:server.mapper.StudentDaoMapper.java -->
+
+<mapper namespace="server.mapper.StudentDaoMapper">
+
+	<resultMap type="server.entity.Student" id="studentMap">
+		<result column="student_id" property="studentId"/>
+		<result column="student_name" property="studentName"/>
+		<result column="student_sex" property="studentSex"/>
+		<result column="student_birthday" property="studentBirthday"/>
+		<result column="class_id" property="classId"/>
+	</resultMap>
+	
+<!-- 	可以根据学生的属性查询学生总数 如果属性都是空则返回所有的学生个数  -->
+	<select id="queryStudentNum" parameterType="server.entity.Student" resultType="int">
+			SELECT
+				count(*)
+			FROM
+				tb_student
+			<where>
+				<choose>
+					<when test="studentId != null and studentId != '' ">
+						student_id = #{studentId}
+					</when>
+					<when test="studentName != null and studentName != '' ">
+						student_name = #{studentName}
+					</when>
+					<when test="studentSex != null and studentSex != '' ">
+						student_sex = #{studentSex}
+					</when>
+					<when test="studentBirthday != null and studentBirthday != '' ">
+						student_birthday = #{studentBirthday}
+					</when>
+					<when test="classId != null and classId != '' ">
+						class_id = #{classId}
+					</when>
+					<otherwise></otherwise>
+				</choose>
+			</where>
+	</select>
+	
+	<!-- 	可以根据学生的属性查询学生列表 如果属性都是空则返回所有的学生列表  -->
+	<select id="findStudentByColumn" parameterType="server.entity.Student" resultMap="studentMap">
+			SELECT
+				student_id,
+				student_name,
+				student_sex,
+				student_birthday,
+				class_id
+			FROM
+				tb_student
+			<where>
+				<choose>
+					<when test="studentId != null and studentId != '' ">
+						student_id = #{studentId}
+					</when>
+					<when test="studentName != null and studentName != '' ">
+						student_name = #{studentName}
+					</when>
+					<when test="studentSex != null and studentSex != '' ">
+						student_sex = #{studentSex}
+					</when>
+					<when test="studentBirthday != null and studentBirthday != '' ">
+						student_birthday = #{studentBirthday}
+					</when>
+					<when test="classId != null and classId != '' ">
+						class_id = #{classId}
+					</when>
+					<otherwise></otherwise>
+				</choose>
+			</where>
+	</select>
+	
+	<select id="queryStudent" parameterType="server.entity.Student" resultMap="studentMap">
+		SELECT
+			student_id,
+			student_name,
+			student_sex,
+			student_birthday,
+			class_id
+		FROM
+			tb_student
+		WHERE student_id = #{studentId}
+	</select>
+</mapper>

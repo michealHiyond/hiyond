@@ -1,0 +1,8 @@
+#忽略一下文件夹与文件
+/.idea/
+/out/
+/target/
+/.settings/
+.classpath
+.project
+hiyond.iml
