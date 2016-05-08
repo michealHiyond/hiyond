@@ -3,7 +3,6 @@ package test.sort;
 import java.util.Arrays;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.junit.Test;
 
 public class MaoPao {
     
