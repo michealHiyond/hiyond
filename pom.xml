@@ -208,8 +208,7 @@
                 <version>7.1.6.v20100715</version>
                 <configuration>
                     <stopKey>stop</stopKey>
-                    <!--<stopPort>7597</stopPort>-->
-                    <stopPort>7587</stopPort><!--端口号与xepay-gw冲突不能同时启动两个工程修改为7587-->
+                    <stopPort>7587</stopPort>
                     <webAppConfig>
                         <contextPath>
                             /
