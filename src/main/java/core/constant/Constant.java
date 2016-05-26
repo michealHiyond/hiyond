@@ -32,5 +32,9 @@ public class Constant implements Serializable{
 	 */
 	public static final Integer REDIS_AUTH_NAME_EXPIRES = 30*60;
 	
+	/**
+	 * cookie 路径
+	 */
+	public static final String COOKIE_PATH = "hiyond";
 	
 }

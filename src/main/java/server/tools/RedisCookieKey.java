@@ -36,7 +36,7 @@ public class RedisCookieKey {
 			String key = RedisCookieKey.getKey(user.getName());
 			RedisUtils.setKey(key, jsonUser);
 			//cookie操作
-			CookieUtils.setCookie(response, Constant.COOKIE_AUTH_NAME, key, "", Constant.COOKIE_AUTH_NAME_EXPIRES);
+			CookieUtils.setCookie(response, Constant.COOKIE_AUTH_NAME, key, Constant.COOKIE_PATH, Constant.COOKIE_AUTH_NAME_EXPIRES);
 			log.info("写入cookie与redis成功");
 			return true;
 		} catch (Exception e) {
