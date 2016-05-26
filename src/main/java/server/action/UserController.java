@@ -56,8 +56,8 @@ public class UserController extends BaseController implements Serializable {
 			userService.updateUser(user);
 			SessionUtils.addUserToSession(request, user);
 			model.addAttribute(user);
-			
-			RedisCookieKey.setCookieRedis(user, response);
+
+			RedisCookieKey.setCookieRedis(user, response, "");
 			return "views/home";
 		} else {
 			return "views/error";
@@ -80,9 +80,9 @@ public class UserController extends BaseController implements Serializable {
 		userService.insertUser(user);
 		SessionUtils.addUserToSession(request, user);
 		model.addAttribute("user", user);
-		
-		RedisCookieKey.setCookieRedis(user, response);
-		
+
+		RedisCookieKey.setCookieRedis(user, response, "");
+
 		return "views/home";
 	}
 }

@@ -113,7 +113,7 @@ public class UserInteceptor implements HandlerInterceptor {
 			} else {
 				user = (User) JSONObject.toBean(JSONObject.fromObject(jsonStr), User.class);
 				SessionUtils.addUserToSession(request, user);
-				RedisCookieKey.setCookieRedis(user, response);
+				RedisCookieKey.setCookieRedis(user, response, sessionKey);
 				return true;
 			}
 		}

@@ -2,6 +2,7 @@ package core.redis;
 
 import org.apache.commons.lang3.StringUtils;
 
+import core.constant.Constant;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
@@ -37,12 +38,14 @@ public class RedisUtils {
 	 * @param key
 	 * @return
 	 */
-	public static boolean setKey(String key, String value) {
+	public static boolean setKey(String key, String value,Integer expires) {
 		JedisPool jedispool = RedisCenter.getJedisPool();
 		Jedis jedis = jedispool.getResource();
 		String result = null;
 		try {
 			result = jedis.set(key, value);
+			expires = expires == null ? Constant.REDIS_AUTH_NAME_EXPIRES : expires;
+			jedis.expire(key, expires);
 		} catch (Exception e) {
 		} finally {
 			jedispool.returnResourceObject(jedis);

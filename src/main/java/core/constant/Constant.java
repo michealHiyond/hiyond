@@ -35,6 +35,6 @@ public class Constant implements Serializable{
 	/**
 	 * cookie 路径
 	 */
-	public static final String COOKIE_PATH = "hiyond";
+	public static final String COOKIE_PATH = "/hiyond/";
 	
 }
