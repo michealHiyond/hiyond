@@ -79,10 +79,6 @@ public class UserInteceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		String url = request.getRequestURI();
-		if(urlSet.contains(url)){
-			logger.info("访问地址，通过："+url);
-			return true;
-		}
 		
 		User user = SessionUtils.getUserFromSession(request);
 		if(user != null && user instanceof User){
@@ -100,7 +96,10 @@ public class UserInteceptor implements HandlerInterceptor{
 //			
 //		}
 		
-		
+		if(urlSet.contains(url)){
+			logger.info("访问地址，通过："+url);
+			return true;
+		}
 		return false;
 	}
 
