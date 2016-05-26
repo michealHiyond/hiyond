@@ -15,7 +15,7 @@ import redis.clients.jedis.JedisPool;
 public class RedisUtils {
 
 	/**
-	 * 
+	 * 获取指定的key
 	 * @param key
 	 * @return
 	 */
@@ -34,8 +34,10 @@ public class RedisUtils {
 	}
 
 	/**
-	 * 
+	 * redis存放
 	 * @param key
+	 * @param value
+	 * @param expires 过期时间如果不设置会使用默认的  @see core.constant.Constant.REDIS_AUTH_NAME_EXPIRES
 	 * @return
 	 */
 	public static boolean setKey(String key, String value,Integer expires) {
@@ -44,7 +46,7 @@ public class RedisUtils {
 		String result = null;
 		try {
 			result = jedis.set(key, value);
-			expires = expires == null ? Constant.REDIS_AUTH_NAME_EXPIRES : expires;
+			expires = (expires == null) ? Constant.REDIS_AUTH_NAME_EXPIRES : expires;
 			jedis.expire(key, expires);
 		} catch (Exception e) {
 		} finally {

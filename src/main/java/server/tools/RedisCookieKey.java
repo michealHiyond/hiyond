@@ -32,6 +32,12 @@ public class RedisCookieKey {
 		return key;
 	}
 
+	/**
+	 * 在redis与cookie中存放用户信息
+	 * @param user
+	 * @param response
+	 * @return
+	 */
 	@Deprecated
 	public static boolean setCookieRedis(User user, HttpServletResponse response) {
 		try {
@@ -49,6 +55,13 @@ public class RedisCookieKey {
 		}
 	}
 
+	/**
+	 * 在redis与cookie中存放用户信息
+	 * @param user 
+	 * @param response
+	 * @param redisKey 如果不设置会生成一个key
+	 * @return
+	 */
 	public static boolean setCookieRedis(User user, HttpServletResponse response, String redisKey) {
 		try {
 			String jsonUser = JSONObject.fromObject(user).toString();
