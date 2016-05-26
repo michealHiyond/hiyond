@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import core.redis.RedisCenter;
 import redis.clients.jedis.Jedis;
 
 public class RedisTest {

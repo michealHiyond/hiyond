@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import server.properties.JdbcProperties;
+import core.properties.JdbcProperties;
 
 
 public class SimpleJdbcTest {

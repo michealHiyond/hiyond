@@ -1,4 +1,4 @@
-package server.properties;
+package core.properties;
 
 import java.io.InputStream;
 import java.io.Serializable;
@@ -82,7 +82,7 @@ public class JdbcProperties implements Serializable {
 			temp = properties.getProperty("jdbc.password");
 			setPassword(temp);
 		} catch (Exception e) {
-			logger.error("读取jdbc配置信息出错：" + e.getMessage());
+			logger.error("读取jdbc配置信息出错：" + e);
 			e.printStackTrace();
 		} finally {
 			try {

@@ -199,31 +199,7 @@
                     <source>1.7</source>
                     <target>1.7</target>
                     <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>7.1.6.v20100715</version>
-                <configuration>
-                    <stopKey>stop</stopKey>
-                    <stopPort>7587</stopPort>
-                    <webAppConfig>
-                        <contextPath>
-                            /
-                        </contextPath>
-                    </webAppConfig>
-                    <scanIntervalSeconds>0</scanIntervalSeconds>
-                    <webAppSourceDirectory>
-                        ${basedir}/src/main/java/webapp
-                    </webAppSourceDirectory>
-                    <connectors>
-                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                            <port>7070</port>
-                            <maxIdleTime>60000</maxIdleTime>
-                        </connector>
-                    </connectors>
+                    <skip>true</skip><!--编译 跳过测试 -->
                 </configuration>
             </plugin>
         </plugins>
