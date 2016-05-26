@@ -2,13 +2,13 @@ package test.redis;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import core.redis.RedisCenter;
-import net.sf.json.JSONObject;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 import server.entity.User;
 
 public class RedisTest {
@@ -16,7 +16,8 @@ public class RedisTest {
 	public Jedis jedis = null;
 
 	{
-		jedis = RedisCenter.getJedis();
+		JedisPool jedisPool = RedisCenter.getJedisPool();
+		jedis = jedisPool.getResource();
 	}
 
 	@Test
@@ -27,17 +28,17 @@ public class RedisTest {
 	@Test
 	public void TestKey() {
 		System.out.println(jedis.ping());
-		System.out.println(jedis.flushDB());
-		jedis.set("hiyond", "hiyondTest");
-		jedis.set("key", "hiyondTest");
-		jedis.expire("hiyond", 20);
+		String result = jedis.set("hiyond", "hiyondTest");
+		System.out.println(result);
+//		jedis.set("key", "hiyondTest");
+//		jedis.expire("hiyond", 20);
 		System.out.println(jedis.get("hiyond"));
-		//
-		System.out.println(jedis.exists("hiyond"));
-
-		Set<String> setKeys = jedis.keys("*");
-		System.out.println(setKeys.size());
-		System.out.println(jedis.ttl("hiyond"));
+		System.out.println(StringUtils.equals(result, "OK"));
+//		System.out.println(jedis.exists("hiyond"));
+//
+//		Set<String> setKeys = jedis.keys("*");
+//		System.out.println(setKeys.size());
+//		System.out.println(jedis.ttl("hiyond"));
 		jedis.close();
 	}
 

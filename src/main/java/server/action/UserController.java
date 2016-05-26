@@ -16,6 +16,7 @@ import core.session.SessionUtils;
 import server.action.base.BaseController;
 import server.entity.User;
 import server.service.UserService;
+import server.tools.RedisCookieKey;
 import server.tools.TimeUtils;
 import server.tools.Tools;
 
@@ -55,6 +56,8 @@ public class UserController extends BaseController implements Serializable {
 			userService.updateUser(user);
 			SessionUtils.addUserToSession(request, user);
 			model.addAttribute(user);
+			
+			RedisCookieKey.setCookieRedis(user, response);
 			return "views/home";
 		} else {
 			return "views/error";
@@ -77,7 +80,9 @@ public class UserController extends BaseController implements Serializable {
 		userService.insertUser(user);
 		SessionUtils.addUserToSession(request, user);
 		model.addAttribute("user", user);
-
+		
+		RedisCookieKey.setCookieRedis(user, response);
+		
 		return "views/home";
 	}
 }

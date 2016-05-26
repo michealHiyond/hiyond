@@ -1,6 +1,9 @@
 package core.redis;
 
+import org.apache.commons.lang3.StringUtils;
+
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 /**
  * redis常用操作
@@ -10,19 +13,41 @@ import redis.clients.jedis.Jedis;
  */
 public class RedisUtils {
 
-	private static Jedis jedis = RedisCenter.getJedis();
-
 	/**
 	 * 
 	 * @param key
 	 * @return
 	 */
 	public static String getString(String key) {
-		String result = jedis.get(key);
-		jedis.close();
+		JedisPool jedispool = RedisCenter.getJedisPool();
+		Jedis jedis = jedispool.getResource();
+		String result = null;
+		try {
+			result = jedis.get(key);
+		} catch (Exception e) {
+		} finally {
+			jedispool.returnResourceObject(jedis);
+		}
+
 		return result;
 	}
-	
-	
+
+	/**
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public static boolean setKey(String key, String value) {
+		JedisPool jedispool = RedisCenter.getJedisPool();
+		Jedis jedis = jedispool.getResource();
+		String result = null;
+		try {
+			result = jedis.set(key, value);
+		} catch (Exception e) {
+		} finally {
+			jedispool.returnResourceObject(jedis);
+		}
+		return StringUtils.equals(result, "OK");
+	}
 
 }

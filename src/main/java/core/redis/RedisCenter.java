@@ -25,7 +25,7 @@ public class RedisCenter implements Serializable {
 
 	private static Logger logger = Logger.getLogger(RedisCenter.class);
 
-	private  static Jedis jedis = null;
+	private static JedisPool jedisPool = null;
 
 	static {
 		logger.info("加载redis配置信息...");
@@ -36,24 +36,25 @@ public class RedisCenter implements Serializable {
 			jedisPoolConfig.setMaxIdle(NumberUtils.toInt(redisProperties.getProperty("maxIdle")));
 			jedisPoolConfig.setMaxTotal(NumberUtils.toInt(redisProperties.getProperty("maxTotal")));
 			jedisPoolConfig.setMaxWaitMillis(NumberUtils.toInt(redisProperties.getProperty("maxWaitMillis")));
-
 			String redisUrl = redisProperties.getProperty("url");
 			int redisPort = NumberUtils.toInt(redisProperties.getProperty("port"));
-			JedisPool jedisPool = new JedisPool(jedisPoolConfig, redisUrl, redisPort);
-			jedis = jedisPool.getResource();
-			jedis.auth(redisProperties.getProperty("password"));
-			jedisPool.close();
+			String password = redisProperties.getProperty("password");
+			int timeout = NumberUtils.toInt(redisProperties.getProperty("maxWaitMillis"));
+			jedisPool = new JedisPool(jedisPoolConfig, redisUrl, redisPort, timeout, password);
 			logger.info("加载redis配置信息成功！");
 		}
 	}
 
-	public static Jedis getJedis() {
-		return jedis;
+	public static JedisPool getJedisPool() {
+		return jedisPool;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
-		Jedis jedis = getJedis();
+		JedisPool jedispool = getJedisPool();
+		Jedis jedis = jedispool.getResource();
 		System.out.println(jedis.ping());
+		jedispool.returnResource(jedis);
 	}
 
 }
