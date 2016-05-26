@@ -17,7 +17,7 @@
        http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd ">
 
 <!-- 配置静态资源  （不会拦截URL）-->
-	<mvc:resources mapping="/assets/**" location="/assets/"></mvc:resources>
+<!-- 	<mvc:resources mapping="/assets/**" location="/assets/"></mvc:resources> -->
 	
 	<context:component-scan base-package="server.action"></context:component-scan>
 

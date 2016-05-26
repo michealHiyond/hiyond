@@ -87,5 +87,7 @@
 		<property name="basePackage" value="server.mapper"></property>
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
 	</bean>
+	
+	<bean id="redisCenter" class="core.redis.RedisCenter"></bean>
 
 </beans>
