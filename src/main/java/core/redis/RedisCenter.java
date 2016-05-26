@@ -25,7 +25,7 @@ public class RedisCenter implements Serializable {
 
 	private static Logger logger = Logger.getLogger(RedisCenter.class);
 
-	public static Jedis jedis = null;
+	private  static Jedis jedis = null;
 
 	static {
 		logger.info("加载redis配置信息...");

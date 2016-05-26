@@ -17,4 +17,20 @@ public class Constant implements Serializable{
 	 */
 	public static final String REDIS_PATH = "/redis/redis.properties";
 	
+	/**
+	 * cookie名称，值为放入redis的用户信息的key
+	 */
+	public static final String COOKIE_AUTH_NAME = "uc";
+	
+	/**
+	 * cookie名称，值为放入redis的用户信息的key的过期时间
+	 */
+	public static final Integer COOKIE_AUTH_NAME_EXPIRES = 30*60;
+	
+	/**
+	 * 值为放入redis的用户信息的key的过期时间
+	 */
+	public static final Integer REDIS_AUTH_NAME_EXPIRES = 30*60;
+	
+	
 }
