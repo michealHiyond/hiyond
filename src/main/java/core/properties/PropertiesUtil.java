@@ -36,9 +36,9 @@ public class PropertiesUtil implements Serializable {
 				}
 			}
 		}
-		 return properties;
+		return properties;
 	}
-	
+
 	public static void main(String[] args) {
 		Properties properties = getProperties("/redis/redis.properties");
 		System.out.println(properties.toString());

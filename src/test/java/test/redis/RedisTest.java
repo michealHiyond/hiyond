@@ -4,23 +4,25 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.Test;
+
 import core.redis.RedisCenter;
 import redis.clients.jedis.Jedis;
 
 public class RedisTest {
 
-	public Jedis jedis = RedisCenter.getJedis();
+	public Jedis jedis = null;
 	
-	public static void main(String[] args) {
-		new RedisTest().testPing();
-//		new RedisTest().TestKey();
-//		new RedisTest().testList();
+	public RedisTest(){
+		jedis = RedisCenter.getJedis();
 	}
-
+	
+	@Test
 	public void testPing(){
 		System.out.println(jedis.ping());
 	}
 	
+	@Test
 	public void TestKey(){
 		System.out.println(jedis.ping());
 		System.out.println(jedis.flushDB());
@@ -37,6 +39,7 @@ public class RedisTest {
 		jedis.close();
 	}
 	
+	@Test
 	public void testList(){
 		System.out.println(jedis.flushDB());
 		jedis.lpush("hiyondTest", "1111","5555");
@@ -47,13 +50,16 @@ public class RedisTest {
 		jedis.close();
 	}
 	
+	@Test
 	public void testMap(){
 		System.out.println(jedis.flushDB());
 		Map<String,String> map = new HashMap<>();
 		map.put("name", "hiyond");
 		map.put("age", "111");
 		jedis.hmset("hiyondTest", map);
+		System.out.println(map);
 		System.out.println(jedis.hvals("hiyondTest"));
+		jedis.close();
 	}
 	
 }

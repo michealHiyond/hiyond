@@ -18,21 +18,21 @@ import redis.clients.jedis.JedisPoolConfig;
  * @author Hiyond
  *
  */
-@Component
+@Component("redisCenter")
 public class RedisCenter implements Serializable {
 
 	private static final long serialVersionUID = -210844441232186492L;
 
 	private static Logger logger = Logger.getLogger(RedisCenter.class);
-	
+
 	public static Jedis jedis = null;
 
 	static {
 		logger.info("加载redis配置信息...");
 		Properties redisProperties = PropertiesUtil.getProperties(Constant.REDIS_PATH);
-		if(redisProperties != null){
+		if (redisProperties != null) {
 			JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-			
+
 			jedisPoolConfig.setMaxIdle(NumberUtils.toInt(redisProperties.getProperty("maxIdle")));
 			jedisPoolConfig.setMaxTotal(NumberUtils.toInt(redisProperties.getProperty("maxTotal")));
 			jedisPoolConfig.setMaxWaitMillis(NumberUtils.toInt(redisProperties.getProperty("maxWaitMillis")));
@@ -43,10 +43,11 @@ public class RedisCenter implements Serializable {
 			jedis = jedisPool.getResource();
 			jedis.auth(redisProperties.getProperty("password"));
 			jedisPool.close();
+			logger.info("加载redis配置信息成功！");
 		}
 	}
-	
-	public static Jedis getJedis(){
+
+	public static Jedis getJedis() {
 		return jedis;
 	}
 
@@ -54,5 +55,5 @@ public class RedisCenter implements Serializable {
 		Jedis jedis = getJedis();
 		System.out.println(jedis.ping());
 	}
-	
+
 }
