@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 
+import core.constant.Constant;
+
 /**
  * 
  * @author hiyond
@@ -55,6 +57,7 @@ public class CookieUtils {
 		path = StringUtils.isNoneBlank(path) ? path : "/";
 		cookie.setPath(path);
 		cookie.setMaxAge(expiry);
+		cookie.setDomain(Constant.COOKIE_DOMAIN);
 		// cookie.setSecure(flag);
 		response.addCookie(cookie);
 	}

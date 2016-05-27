@@ -32,25 +32,25 @@ public class UserInteceptor implements HandlerInterceptor {
 	/**
 	 * 登录URL
 	 */
-	private static final String LOGIN_URL = "/hiyond/user/login";
+	private static final String LOGIN_URL = "/user/login";
 
 	/**
 	 * 注册URL
 	 */
-	private static final String REGISTER_URL = "/hiyond/user/register";
+	private static final String REGISTER_URL = "/user/register";
 
 	/**
 	 * 跳转登录URL
 	 */
-	private static final String gotologin_URL = "/hiyond/user/gotologin";
+	private static final String gotologin_URL = "/user/gotologin";
 
 	/**
 	 * 登录成功后跳转到指定的页面URL
 	 */
-	private static final String gotologin_SUCCESS_URL = "/hiyond/user/views/home";
+	private static final String gotologin_SUCCESS_URL = "/user/views/home";
 
 	/**
-	 * 不拦截的URL
+	 * URL白名单
 	 */
 	private static Set<String> urlSet = new HashSet<String>();
 
@@ -83,37 +83,36 @@ public class UserInteceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-
-		String url = request.getRequestURI();
+		String url = request.getServletPath();
 
 		// 获取request中的Session信息，判断user信息
 		User user = SessionUtils.getUserFromSession(request);
 		if (user != null && user instanceof User) {
-			logger.info(user + "访问地址，通过：" + url);
+			logger.info("已经登录的用户：" + user + "访问地址，通过：" + url);
 			return true;
 		}
-
+		// URL白名单不拦截
+		if (urlSet.contains(url)) {
+			logger.info("访问的URL属于白名单，访问地址，通过：" + url);
+			return true;
+		}
 		// 根据前台的cookie信息
 		String sessionKey = CookieUtils.cookieValue(request, Constant.COOKIE_AUTH_NAME);
 		if (StringUtils.isBlank(sessionKey)) {
-			// 特殊的URL不拦截
-			if (urlSet.contains(url)) {
-				logger.info("访问地址，通过：" + url);
-				return true;
-			}
-
-			logger.info("访问地址，拦截：" + url);
-			request.getRequestDispatcher("/index.jsp").forward(request, response);
+			logger.info("前台没有cookie信息，访问地址，拦截：" + url + "，重定向到首页");
+			response.sendRedirect("/index.jsp");
 			return false;
 		} else {
 			String jsonStr = RedisUtils.getString(sessionKey);
 			if (StringUtils.isBlank(jsonStr)) {
-				request.getRequestDispatcher("/index.jsp").forward(request, response);
+				logger.info("获取缓存的用户信息失败，重定向到首页");
+				response.sendRedirect("/index.jsp");
 				return false;
 			} else {
 				user = (User) JSONObject.toBean(JSONObject.fromObject(jsonStr), User.class);
 				SessionUtils.addUserToSession(request, user);
 				RedisCookieKey.setCookieRedis(user, response, sessionKey);
+				logger.info("获取缓存的用户信息成功！");
 				return true;
 			}
 		}
