@@ -47,17 +47,20 @@ public class CookieUtils {
 	 * @param response
 	 * @param cookieName
 	 * @param cookieValue
-	 * @param path
+	 * @param path 路径，如果不设置默认为"/"
 	 * @param expiry
+	 * @param domain 作用域：默认为 @see {@link Constant.COOKIE_DOMAIN}
 	 */
 	public static void setCookie(HttpServletResponse response, 
 			String cookieName, String cookieValue, String path,
-			Integer expiry) {
+			Integer expiry, String domain) {
 		Cookie cookie = new Cookie(cookieName, cookieValue);
 		path = StringUtils.isNoneBlank(path) ? path : "/";
 		cookie.setPath(path);
 		cookie.setMaxAge(expiry);
-		cookie.setDomain(Constant.COOKIE_DOMAIN);
+		if(StringUtils.isNoneBlank(domain)){
+			cookie.setDomain(domain);
+		}
 		// cookie.setSecure(flag);
 		response.addCookie(cookie);
 	}

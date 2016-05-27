@@ -7,7 +7,7 @@ import java.util.UUID;
  * @author Hiyond
  *
  */
-public class Tools {
+public class UUIDTools {
 
     /**
      * 产生一个UUID字符串 

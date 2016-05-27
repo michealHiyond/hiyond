@@ -20,7 +20,7 @@ import server.entity.User;
 import server.tools.RedisCookieKey;
 
 /**
- * 自定义拦截器
+ * 自定义用户登录拦截器
  * 
  * @author Hiyond
  *
@@ -52,9 +52,10 @@ public class UserInteceptor implements HandlerInterceptor {
 	/**
 	 * URL白名单
 	 */
-	private static Set<String> urlSet = new HashSet<String>();
+	private static Set<String> urlSet = null;
 
 	static {
+		urlSet = new HashSet<String>();
 		urlSet.add(LOGIN_URL);
 		urlSet.add(REGISTER_URL);
 		urlSet.add(gotologin_URL);

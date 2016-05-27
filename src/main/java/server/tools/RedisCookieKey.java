@@ -27,37 +27,15 @@ public class RedisCookieKey {
 	 * @return
 	 */
 	public static String getKey(String userName) {
-		String key = userName + UUID.randomUUID().toString();
+		String key = userName + UUIDTools.getUUID();
 		System.out.println("生成的key:" + key);
 		return key;
 	}
 
 	/**
 	 * 在redis与cookie中存放用户信息
+	 * 
 	 * @param user
-	 * @param response
-	 * @return
-	 */
-	@Deprecated
-	public static boolean setCookieRedis(User user, HttpServletResponse response) {
-		try {
-			String jsonUser = JSONObject.fromObject(user).toString();
-			String redisKey = RedisCookieKey.getKey(user.getName());
-			RedisUtils.setKey(redisKey, jsonUser,Constant.REDIS_AUTH_NAME_EXPIRES);
-			// cookie操作
-			CookieUtils.setCookie(response, Constant.COOKIE_AUTH_NAME, redisKey, Constant.COOKIE_PATH,
-					Constant.COOKIE_AUTH_NAME_EXPIRES);
-			log.info("写入cookie与redis成功");
-			return true;
-		} catch (Exception e) {
-			log.error("写入cookie与redis失败：" + e);
-			return false;
-		}
-	}
-
-	/**
-	 * 在redis与cookie中存放用户信息
-	 * @param user 
 	 * @param response
 	 * @param redisKey 如果不设置会生成一个key
 	 * @return
@@ -66,10 +44,10 @@ public class RedisCookieKey {
 		try {
 			String jsonUser = JSONObject.fromObject(user).toString();
 			redisKey = StringUtils.isBlank(redisKey) ? RedisCookieKey.getKey(user.getName()) : redisKey;
-			RedisUtils.setKey(redisKey, jsonUser,Constant.REDIS_AUTH_NAME_EXPIRES);
+			RedisUtils.setKey(redisKey, jsonUser, Constant.REDIS_AUTH_NAME_EXPIRES);
 			// cookie操作
 			CookieUtils.setCookie(response, Constant.COOKIE_AUTH_NAME, redisKey, Constant.COOKIE_PATH,
-					Constant.COOKIE_AUTH_NAME_EXPIRES);
+					Constant.COOKIE_AUTH_NAME_EXPIRES, Constant.COOKIE_DOMAIN);
 			log.info("写入cookie与redis成功");
 			return true;
 		} catch (Exception e) {

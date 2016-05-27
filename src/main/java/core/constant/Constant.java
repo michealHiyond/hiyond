@@ -38,7 +38,7 @@ public class Constant implements Serializable{
 	public static final String COOKIE_PATH = "/";
 	
 	/**
-	 * cookie 路径
+	 * cookie 作用域
 	 */
 	public static final String COOKIE_DOMAIN = ".hiyond.com";
 	

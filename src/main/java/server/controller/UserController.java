@@ -18,7 +18,7 @@ import server.entity.User;
 import server.service.UserService;
 import server.tools.RedisCookieKey;
 import server.tools.TimeUtils;
-import server.tools.Tools;
+import server.tools.UUIDTools;
 
 /**
  * 
@@ -75,7 +75,7 @@ public class UserController extends BaseController implements Serializable {
 		String dateType = "yyyy-MM-dd HH:mm:ss";
 		lastLoginTime = TimeUtils.util_timeFormat(TimeUtils.util_timeFormat(lastLoginTime, dateType), dateType);
 		user.setLastLoginTime(lastLoginTime);
-		user.setUUID(Tools.getUUID());
+		user.setUUID(UUIDTools.getUUID());
 		userService.insertUser(user);
 		SessionUtils.addUserToSession(request, user);
 		model.addAttribute("user", user);
