@@ -1,7 +1,5 @@
 package server.tools;
 
-import java.util.UUID;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
@@ -28,7 +26,6 @@ public class RedisCookieKey {
 	 */
 	public static String getKey(String userName) {
 		String key = userName + UUIDTools.getUUID();
-		System.out.println("生成的key:" + key);
 		return key;
 	}
 
