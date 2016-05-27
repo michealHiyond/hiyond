@@ -1,4 +1,4 @@
-package server.action.base;
+package server.controller.base;
 
 public class BaseController {
 

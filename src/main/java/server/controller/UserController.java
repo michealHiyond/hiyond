@@ -1,4 +1,4 @@
-package server.action;
+package server.controller;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import core.session.SessionUtils;
-import server.action.base.BaseController;
+import server.controller.base.BaseController;
 import server.entity.User;
 import server.service.UserService;
 import server.tools.RedisCookieKey;
@@ -38,7 +38,6 @@ public class UserController extends BaseController implements Serializable {
 	@RequestMapping(value = "/gotologin", method = { RequestMethod.POST, RequestMethod.GET })
 	public String gotologin(Model model, HttpServletRequest request, HttpServletResponse response) {
 		String rebackUrl = request.getHeader("referer");
-		System.out.println(request.getSession().getServletContext().getRealPath("/"));
 		model.addAttribute("rebackUrl", rebackUrl);
 		return "user/user";
 	}
