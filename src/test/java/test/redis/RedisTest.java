@@ -39,7 +39,6 @@ public class RedisTest {
 //		Set<String> setKeys = jedis.keys("*");
 //		System.out.println(setKeys.size());
 //		System.out.println(jedis.ttl("hiyond"));
-		jedis.close();
 	}
 
 	@Test
@@ -50,7 +49,6 @@ public class RedisTest {
 		jedis.lpush("hiyondTest", "3333");
 		jedis.lpush("hiyondTest", "4444");
 		System.out.println(jedis.lrange("hiyondTest", 0, -1));
-		jedis.close();
 	}
 
 	@Test
@@ -71,7 +69,6 @@ public class RedisTest {
 		System.out.println(jedis.hgetAll("userMap"));
 		userMap = jedis.hgetAll("userMap");
 		System.out.println(userMap);
-		jedis.close();
 	}
 	
 	@Test

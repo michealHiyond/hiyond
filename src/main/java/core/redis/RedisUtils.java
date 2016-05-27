@@ -20,14 +20,21 @@ public class RedisUtils {
 	 * @return
 	 */
 	public static String getString(String key) {
-		JedisPool jedispool = RedisCenter.getJedisPool();
-		Jedis jedis = jedispool.getResource();
+		JedisPool jedispool = null;
+		Jedis jedis = null;
 		String result = null;
 		try {
+			jedispool = RedisCenter.getJedisPool();
+			jedis = jedispool.getResource();
 			result = jedis.get(key);
 		} catch (Exception e) {
+			if(jedis != null){
+				jedispool.returnBrokenResource(jedis);
+			}
 		} finally {
-			jedispool.returnResourceObject(jedis);
+			if(jedis != null){
+				jedispool.returnResourceObject(jedis);
+			}
 		}
 
 		return result;
@@ -41,16 +48,23 @@ public class RedisUtils {
 	 * @return
 	 */
 	public static boolean setKey(String key, String value,Integer expires) {
-		JedisPool jedispool = RedisCenter.getJedisPool();
-		Jedis jedis = jedispool.getResource();
+		JedisPool jedispool = null;
+		Jedis jedis = null;
 		String result = null;
 		try {
+			jedispool = RedisCenter.getJedisPool();
+			jedis = jedispool.getResource();
 			result = jedis.set(key, value);
 			expires = (expires == null) ? Constant.REDIS_AUTH_NAME_EXPIRES : expires;
 			jedis.expire(key, expires);
 		} catch (Exception e) {
+			if(jedis != null){
+				jedispool.returnBrokenResource(jedis);
+			}
 		} finally {
-			jedispool.returnResourceObject(jedis);
+			if(jedis != null){
+				jedispool.returnResourceObject(jedis);
+			}
 		}
 		return StringUtils.equals(result, "OK");
 	}
