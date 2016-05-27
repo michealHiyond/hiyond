@@ -58,5 +58,9 @@ public class CookieUtils {
 		// cookie.setSecure(flag);
 		response.addCookie(cookie);
 	}
+	
+//	public boolean CookieIsExpire(Cookie cookie){
+//		int flag = cookie.getMaxAge();
+//	}
 
 }
